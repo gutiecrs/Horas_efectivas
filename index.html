@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Hours Calculator</title>
+    <head>
+        <!-- ... -->
+        <link rel="icon" type="image/x-icon" href="images/Logo html.png">
+    </head>
+    <style>
+        button.active {
+    /* Efecto para botón activo */
+    button.active {
+        background: #008df3 !important;
+        transform: scale(0.98);
+    }
+
+    @keyframes shine {
+            0% { transform: translate(-50%, -50%) rotate(45deg); }
+            100% { transform: translate(50%, 50%) rotate(45deg); }
+        }
+
+    /* Definición de animaciones */
+    @keyframes pulse-alert {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    @keyframes shake-alert {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+        100% { transform: translateX(0); }
+    }
+
+    @keyframes blink-alert {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes rotate-alert {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(2deg); }
+        75% { transform: rotate(-2deg); }
+        100% { transform: rotate(0deg); }
+    }
+
+    /* Clase para aplicar efectos */
+    .alert-effect {
+        animation: 
+            pulse-alert 1s infinite,
+            shake-alert 0.5s infinite,
+            blink-alert 0.8s infinite,
+            rotate-alert 0.3s infinite;
+        border: 2px solid #ff4444 !important;
+    }
+
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;  /* Más ancho */
+            margin: 40px auto;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;  /* Contenedor más grande */
+            gap: 30px;
+        }
+
+        .controls {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        button.pause {
+            background: #FF9800;
+        }
+
+        button.reset {
+            background: #be0000;
+        }
+
+        .timer {
+            font-size: 4em !important;  /* Tamaño aumentado */
+            padding: 40px;
+            background: #1a2b3c;
+            color: white; /* Texto en blanco */
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+
+        .history-entry {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        @keyframes pulse-alert {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake-alert {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+            100% { transform: translateX(0); }
+        }
+
+    .alert-effect {
+        animation: pulse-alert 1s infinite, shake-alert 0.5s infinite;
+        border: 2px solid #ff4444 !important;
+    }
+
+    .title-container {
+            color: #2c3e50;
+            text-align: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #f8f9fa 30%, #e9ecef 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 
+                        0 2px 4px -1px rgba(0,0,0,0.06);
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: visible; /* Cambiado a 'visible' */
+        }
+
+        .title-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 
+                        0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        /* 3. Efecto de brillo */
+        .shine-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 25%,
+                rgba(255,255,255,0.3) 50%,
+                transparent 75%
+            );
+            animation: shine 3s infinite;
+            z-index: 1;
+            pointer-events: none; /* Permite interactuar con el título */
+        }
+
+        .title-text {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+        }
+    
+    </style>
+    
+</head>
+<body>
+    <h1 class="title-container">
+        <span class="title-text">⏱️ Hours Calculator</span>
+        <div class="shine-effect"></div>
+    </h1>
+    
+    <div class="container">
+        <div class="controls">
+            <select id="task">
+                <option value="Recepción APP">Recepción APP</option>
+                <option value="Recepción FTW"> Recepción FTW</option>
+                <option value="Recepción HDW"> Recepción HDW</option>
+                <option value="Alarmado y Perchado"> Alarmado y Perchado</option>
+                <option value="Planchado y estándares">Planchado y estándares</option>
+                <option value="Reposición desde Stock">Reposición desde stock</option>
+                
+            </select>
+            
+            <input type="number" id="pieces" placeholder="Piezas requeridas">
+            <input type="number" id="goal" placeholder="Meta por hora (piezas)">
+            
+            <button onclick="calculate()">Calcular Tiempo</button>
+            <button onclick="startTimer()" id="startBtn">▶ Iniciar</button>
+            <button onclick="pauseTimer()" class="pause" id="pauseBtn">⏸ Pausar</button>
+            <button onclick="resetTimer()" class="reset">⏹ Reiniciar</button>
+            <button onclick="showHistory()">📜 Ver Historial</button>
+            <button onclick="clearHistory()" class="reset">🗑️ Borrar Historial</button>
+            
+            <div id="result"></div>
+        </div>
+
+        <div class="timer" id="timer">00:00:00</div>
+    </div>
+
+    <script>
+
+        function clearHistory() {
+        if (confirm("¿Estás seguro de borrar todo el historial?")) {
+            localStorage.removeItem('history');
+            document.getElementById('result').innerHTML = 
+                '<div style="color: #666; padding: 10px;">Historial borrado</div>';
+        }
+    }
+        let startTime = 0;
+        let pausedTime = 0;
+        let timerInterval;
+        let isRunning = false;
+        let isPaused = false;
+        let estimatedTime = 0;
+
+        // Calcular tiempo estimado
+        function calculate() {
+            const pieces = parseFloat(document.getElementById('pieces').value);
+            const goal = parseFloat(document.getElementById('goal').value);
+            
+            if (isNaN(pieces) || isNaN(goal)) {
+                alert("⚠️ Ingresa valores numéricos válidos!");
+                return;
+            }
+            
+            estimatedTime = (pieces / goal) * 60; // Tiempo en minutos
+            document.getElementById('result').innerHTML = `
+                <div style="color: #4CAF50; font-weight: bold;">
+                    ⏳ Tiempo estimado: ${Math.floor(estimatedTime / 60)}h ${Math.floor(estimatedTime % 60)}m
+                </div>
+            `;
+
+            // Guardar en historial
+            const task = document.getElementById('task').value;
+            const historyEntry = {
+                task: task,
+                pieces: pieces,
+                goal: goal,
+                date: new Date().toLocaleString()
+            };
+
+            let history = JSON.parse(localStorage.getItem('history') || '[]');
+            history.push(historyEntry);
+            localStorage.setItem('history', JSON.stringify(history));
+        }
+
+        // Control del cronómetro
+        function startTimer() {
+            if (!isRunning) {
+                if (isPaused) {
+                    startTime = Date.now() - pausedTime;
+                } else {
+                    startTime = Date.now();
+                }
+                isRunning = true;
+                isPaused = false;
+                timerInterval = setInterval(updateTimer, 1000);
+                document.getElementById('startBtn').textContent = '▶ Reanudar';
+                document.getElementById('startBtn').classList.add('active');
+                document.getElementById('pauseBtn').classList.remove('active');
+            }
+        }
+
+        function pauseTimer() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+                isPaused = true;
+                pausedTime = Date.now() - startTime;
+                document.getElementById('pauseBtn').textContent = '⏸ Pausado';
+                document.getElementById('startBtn').classList.remove('active');
+                document.getElementById('pauseBtn').classList.add('active');
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            isPaused = false;
+            startTime = 0;
+            pausedTime = 0;
+            estimatedTime = 0;
+            document.getElementById('timer').textContent = '00:00:00';
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('startBtn').textContent = '▶ Iniciar';
+            document.getElementById('pauseBtn').textContent = '⏸ Pausar';
+            document.getElementById('startBtn').classList.remove('active');
+            document.getElementById('pauseBtn').classList.remove('active');
+            document.getElementById('timer').classList.add('alert-effect');
+            document.getElementById('timer').classList.remove('alert-effect');
+        }
+
+        // Actualizar el tiempo
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const formattedTime = new Date(elapsed).toISOString().substr(11, 8);
+            document.getElementById('timer').textContent = formattedTime;
+            
+            if (estimatedTime > 0) {
+                const remainingTime = estimatedTime * 60 * 1000 - elapsed;
+                
+                if (remainingTime < estimatedTime * 60 * 1000 * 0.1) {
+                    document.getElementById('timer').classList.add('alert-effect');
+                } else {
+                    document.getElementById('timer').classList.remove('alert-effect');
+                }
+
+                if (elapsed / 1000 / 60 >= estimatedTime) {
+                    const resultDiv = document.getElementById('result');
+                    if (!resultDiv.innerHTML.includes("Meta alcanzada")) {
+                        resultDiv.innerHTML += `
+                            <div style="color: #F44336; margin-top: 10px;">
+                                🎉 ¡Meta alcanzada! (Continuando...)
+                            </div>
+                        `;
+            }
+        }
+    }
+}
+
+        // Mostrar historial
+        function showHistory() 
+        {
+            const history = JSON.parse(localStorage.getItem('history')) || [];
+
+            if (history.length === 0) {
+        document.getElementById('result').innerHTML = 
+            '<div style="color: #666; padding: 10px;">No hay registros en el historial</div>';
+        return;
+    }
+            
+            document.getElementById('result').innerHTML = history
+                .map(entry => `
+                    <div class="history-entry">
+                        <strong>📅 ${entry.date}</strong><br>
+                        🏷 Tarea: ${entry.task}<br>
+                        📦 Piezas: ${entry.pieces}<br>
+                        🎯 Meta: ${entry.goal} piezas/hora
+                    </div>
+                    
+                    
+                `)
+                .reverse() // Mostrar del más reciente al más antiguo
+                .join('');
+        }
+    </script>
+</body>
+</html>
